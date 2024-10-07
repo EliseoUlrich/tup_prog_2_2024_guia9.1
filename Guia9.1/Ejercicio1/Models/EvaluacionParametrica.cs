@@ -19,27 +19,41 @@ namespace Ejercicio1
         public double ValorTolerado { get; private set; }
         public double ValorMedido { get { return ValorMedido; } set { ValorMedido = value; } }
 
-        EvaluacionParametrica(string nombre, string descripcion, double minimo, double maximo, string unidad, double tolerado) : base(nombre, descripcion)
+        public EvaluacionParametrica(double valorMinimo, double valorMaximo, double valorTolerado, string unidad, string n, string d) : base(n, d)
         {
-            ValorMaximo = maximo;
-            ValorTolerado = tolerado;
-            ValorMinimo = minimo;
+            ValorMaximo = valorMaximo;
+            ValorTolerado = valorTolerado;
+            ValorMinimo = valorMinimo;
             Unidad = unidad;
         }
         public override TipoAprobacion Evaluar()
         {
-            double porcentaje = ValorMinimo * 0.7;
-            if (porcentaje < ValorMedido) return TipoAprobacion.NoAprobado;
-            else if (ValorMedido < ValorMinimo) return TipoAprobacion.Parcial;
+            double valor70 = ValorMaximo * (1 - ValorTolerado / 100);
+            double valor130 = ValorMinimo * (1 + ValorTolerado / 100);
+            if (ValorMedido < valor70)
+            {
+                return TipoAprobacion.NoAprobado;
+            }
+            else if (ValorMedido < ValorMinimo)
+            {
+                return TipoAprobacion.Parcial;
+            }
+            else if (ValorMedido <= ValorMaximo)
+            {
+                return TipoAprobacion.Aprobado;
+            }
+            else if (ValorMedido < valor130)
+            {
+                return TipoAprobacion.Aprobado;
+            }
             return TipoAprobacion.Aprobado;
         }
         public override string ToString()
         {
-            if (Evaluar() == TipoAprobacion.Aprobado)
-            { return $"Aprobado"; }
-            else if (Evaluar() == TipoAprobacion.Parcial)
-            { return $"Parcial"; }
-            return $"No Aprobado";
+            string nombre = Nombre.Length > 20 ? Nombre.Substring(0, 17) + "..." : Nombre.PadRight(20, '_');
+            string descripcion = Descripcion.Length > 20 ? Descripcion.Substring(0, 17) + "..." : Descripcion.PadRight(20, '_');
+            return $"{nombre} - {descripcion} - {Evaluar()}\r\n";
         }
     }
+    
 }

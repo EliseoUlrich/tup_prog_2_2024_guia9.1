@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DniInvalidoExcepcion.cs" />
+    <Compile Include="Models\EmailInvalidoExcepcion.cs" />
     <Compile Include="Models\Evaluacion.cs" />
     <Compile Include="Models\EvaluacionParametrica.cs" />
     <Compile Include="Models\EvaluacionSimple.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\PatenteInvalidaExcepcion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Propietario.cs" />

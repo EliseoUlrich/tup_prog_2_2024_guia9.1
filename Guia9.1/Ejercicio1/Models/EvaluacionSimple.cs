@@ -9,23 +9,20 @@ namespace Ejercicio1
     public class EvaluacionSimple:Evaluacion
     {
         public bool HaVerificado{ get { return HaVerificado; } set { HaVerificado = value; } }
-        public EvaluacionSimple(bool haVerificado, string nombre, string descripcion):base(nombre, descripcion)
-        {
-            HaVerificado = haVerificado;
-        }
-
+        public EvaluacionSimple(string n, string d) : base(n, d) { }
         public override TipoAprobacion Evaluar()
         {
             if (HaVerificado)
-            { return TipoAprobacion.Aprobado; }
-            else { return TipoAprobacion.NoAprobado; }
+            {
+                return TipoAprobacion.Aprobado;
+            }
+            return TipoAprobacion.NoAprobado;
         }
-
         public override string ToString()
         {
-            if (Evaluar() == TipoAprobacion.Aprobado)
-            { return $"Aprobado"; }
-            return $"No Aprobado";
+            string nombre = Nombre.Length > 20 ? Nombre.Substring(0, 17) + "..." : Nombre.PadRight(20, '_');
+            string descripcion = Descripcion.Length > 20 ? Descripcion.Substring(0, 17) + "..." : Descripcion.PadRight(20, '_');
+            return $"{nombre} - {descripcion} - {Evaluar()}\r\n";
         }
     }
 }
